@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <title>Home</title>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="jumbotron">
+
+            <h1>Bienvenue sur Rues de France</h1>
+
+        </div>
+    </div>
+
+    <div class="container">
+
+        <h2>Indiquer un nom de rue</h2>
+
+        <form method='POST'>
+            
+            <!-- {{ form.as_p }} -->
+            <!-- {{ form.street_name }}
+            {% csrf_token %} -->
+
+            <p><textarea id="uploaded_text" form="form" name="uploaded_text" cols="75" rows="1" wrap="soft" placeholder="" class="textinput" autofocus></textarea>
+            </p>
+            
+            <input type="submit" class="btn btn-primary" value="Submit">
+
+        </form>
+
+    </div>
+
+    <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus -->
+
+</body>
+</html>
