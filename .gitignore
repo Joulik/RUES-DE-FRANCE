@@ -1,2 +1,3 @@
-*.pyc
-db.sqlite3
+django-version/ProjRDF/db.sqlite3
+django-version/ProjRDF/France_Rues.csv
+django-version/ProjRDF/communes-departement-region.csv
