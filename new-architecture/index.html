@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="jquery-jvectormap-2.0.5/jquery-jvectormap-2.0.5.css" type="text/css" media="screen"/>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="jquery-jvectormap-2.0.5/jquery-jvectormap-2.0.5.min.js" ></script>
+    <script src="jquery-jvectormap-fr_regions-merc.js"></script>
+    
+    <!-- <script src="dens-data.js"></script> -->
     <title>Home</title>
 </head>
 <body>
@@ -19,22 +26,116 @@
 
         <h2>Indiquer un nom de rue</h2>
 
-        <form method='POST'>
+        <!-- <form method='POST'> -->
+
+            <!-- <p><textarea id="uploaded_street_name" name="uploaded_street_name" cols="75" rows="1" wrap="soft" placeholder="" class="textinput" autofocus></textarea>
+            </p> -->
+            <input type="text" id="uploaded_street_name">
             
-            <!-- {{ form.as_p }} -->
-            <!-- {{ form.street_name }}
-            {% csrf_token %} -->
+            <button class="button" id="requestbutton" type="button">Submit</button>
 
-            <p><textarea id="uploaded_text" form="form" name="uploaded_text" cols="75" rows="1" wrap="soft" placeholder="" class="textinput" autofocus></textarea>
-            </p>
-            
-            <input type="submit" class="btn btn-primary" value="Submit">
+        <!-- </form> -->
 
-        </form>
+    </div> <!-- user request -->
 
+    <div class="container">
+        <div id="map-dens" style="width: 600px; height: 600px"></div>
+        <!-- <div id="map-dens" style="max-width: 100%; max-height: 100%"></div> -->
+        <!-- <div id="map-dens"></div> -->
     </div>
+    
 
     <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus -->
+
+    <script>
+
+        document.getElementById("requestbutton").addEventListener('click', makeRequest);
+
+        function makeRequest() {
+
+            // make textarea and analysis button invisible
+            // and make loading animation visible
+            // toggleElements("analysisblock", "loader");
+
+            var street_name = document.getElementById("uploaded_street_name").value;
+            var dataa = {"street_name": street_name};
+            
+
+            $.ajax({
+               url: "https://234zziyame.execute-api.eu-west-3.amazonaws.com/v1/submit_button_lambda_handler",
+               type: "POST",
+               data: JSON.stringify(dataa),
+               success: function(response) {
+
+            //handle the response received from AWS
+        
+               handleResponse(response);
+
+               }
+        
+            });
+
+        }
+
+        function handleResponse(analysisResult) {
+
+        // store the analysisResult in the user's browser
+            //for (var k in analysisResult) {
+            //if (analysisResult.hasOwnProperty(k)) {
+           // localStorage.setItem(k, JSON.stringify(analysisResult[k]));
+            //}
+            //}
+
+        // go to the report page
+               
+                densData = analysisResult;
+                console.log(densData);
+
+                for (var k in analysisResult) {
+                    console.log(densData[k])
+                }
+
+                document.getElementById("map-dens").innerHTML='';
+                document.getElementById("uploaded_street_name").value='';
+
+                $('#map-dens').vectorMap({
+                    map: 'fr_regions_merc',
+                    series: {
+                        regions: [{
+                            values: densData,
+                            scale: ['#C8EEFF', '#0071A4'],
+                            normalizeFunction: 'polynomial'
+                        }]
+                    },
+                    onRegionTipShow: function(e, el, code){
+                    el.html(el.html()+' (Dens - '+densData[code]+')');
+                    }
+                });
+
+
+            //window.location.href = "index.html";
+        }
+
+
+    //     function(){
+    // //   $('#map').vectorMap({map: 'fr_regions_merc'});
+
+    //         $('#map-dens').vectorMap({
+    //             map: 'fr_regions_merc',
+    //             series: {
+    //                 regions: [{
+    //                     values: densData,
+    //                     scale: ['#C8EEFF', '#0071A4'],
+    //                     normalizeFunction: 'polynomial'
+    //                 }]
+    //             },
+    //             onRegionTipShow: function(e, el, code){
+    //             el.html(el.html()+' (Dens - '+densData[code]+')');
+    //             }
+    //         });
+    //     };
+
+    </script>
 
 </body>
 </html>

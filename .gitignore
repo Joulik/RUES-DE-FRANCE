@@ -4,3 +4,5 @@ django-version/ProjRDF/communes-departement-region.csv
 django-version/ProjRDF/ProjRDF/__pycache__/*.pyc
 django-version/ProjRDF/rues_france/__pycache__/*.pyc
 django-version/ProjRDF/rues_france/migrations/__pycache__/*.pyc
+new-architecture/dens-data.js
+new-architecture/submit-button-lambda-handler.zip
