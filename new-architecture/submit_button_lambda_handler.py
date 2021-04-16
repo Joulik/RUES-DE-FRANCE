@@ -1,15 +1,10 @@
 import json
 import logging
 
-#from analyser import Analyser
-#from text import Text
-
-
 """
 This function is called by AWS every time the 
 Submit button Lambda is triggered
 """
-
 
 def handler(event, context):
 
