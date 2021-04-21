@@ -5,11 +5,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <link rel="stylesheet" href="jquery-jvectormap-2.0.5/jquery-jvectormap-2.0.5.css" type="text/css" media="screen"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <script src="jquery-3.6.0.min.js"></script> -->
     <script src="jquery-jvectormap-2.0.5/jquery-jvectormap-2.0.5.min.js" ></script>
     <script src="jquery-jvectormap-fr_regions_2016-merc.js"></script>
     
-    <title>Home</title>
+    <title>Rues de France</title>
 </head>
 <body>
     
@@ -77,7 +76,7 @@
                     }]
                 },
                 onRegionTipShow: function(e, el, code){
-                el.html(el.html()+' (Dens - '+densData[code]+')');
+                el.html(el.html()+' - '+densData[code]+' villes');
                 }
             });
 
