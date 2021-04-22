@@ -1,6 +1,6 @@
 # Architecture of webapp
 
-The diagram below gives summarizes the architecture of the webapp.
+The diagram below illustrates the architecture of the webapp.
 
 ![diagram](RDF_architecture_diagram.png) 
 
