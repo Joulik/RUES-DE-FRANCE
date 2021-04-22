@@ -28,7 +28,9 @@
         <div id="map-dens" style="width: 600px; height: 600px"></div>
     </div>
     
-    <!-- <div id="text_number"></div> -->
+    <div class="container">
+        <div id="total_number"></div>
+    </div>
     
     <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus -->
 
@@ -59,7 +61,8 @@
 
         function handleResponse(analysisResult) {
                
-            densData = analysisResult; //["densformap"];
+            densData = analysisResult["nbr_streets_per_region"];
+            totStreetNbr = analysisResult["total_street_nbr"]; //["densformap"];
             console.log(densData);
 
             // clean map area
@@ -67,6 +70,7 @@
             // clean text box
             document.getElementById("uploaded_street_name").value='';
 
+            // show results on map
             $('#map-dens').vectorMap({
                 map: 'fr_regions_2016_merc',
                 series: {
@@ -80,9 +84,11 @@
                 el.html(el.html()+' - '+densData[code]+' villes');
                 }
             });
-            //$('#text_number').html(analysisResult['otherstuff'])
+
+            // total number of requested street 
+            $('#total_number').html(analysisResult["total_street_nbr"])
             
-            // Reinitialize request button
+            // reinitialize request button
             $('#requestbutton').html('Start').removeClass('disabled');
 
        }

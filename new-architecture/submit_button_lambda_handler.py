@@ -112,9 +112,16 @@ def handler(event, context):
         for k2,v2 in fr_region_codes.items():
             if k1==k2:
                 final_dict[v2]=v1
-                
+    
+    # total number of streets for request 
+    total_street_nbr = 0
+    for k,v in final_dict.items():
+            total_street_nbr += v
+            
+    print("Total: {}".format(total_street_nbr))
+    
     # dict to send back to JS
-    subreports = final_dict
+    subreports = {"nbr_streets_per_region":final_dict,"total_street_nbr":"<p>Total {}</p>".format(total_street_nbr)}
 
     return {
         'statusCode': 200,
