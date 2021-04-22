@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="jquery-jvectormap-2.0.5/jquery-jvectormap-2.0.5.css" type="text/css" media="screen"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="jquery-jvectormap-2.0.5/jquery-jvectormap-2.0.5.min.js" ></script>
@@ -21,24 +21,25 @@
     <div class="container">
         <h2>Indiquer un nom de rue</h2>
             <input type="text" id="uploaded_street_name">
-            <button class="button" id="requestbutton" type="button">Submit</button>
+            <button class="button btn btn-primary" id="requestbutton" type="button">Start</button>
     </div>
 
     <div class="container">
         <div id="map-dens" style="width: 600px; height: 600px"></div>
     </div>
     
+    <!-- <div id="text_number"></div> -->
+    
     <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus -->
 
     <script>
-
-        document.getElementById("requestbutton").addEventListener('click', makeRequest);
+        
+        $('#requestbutton').click(function() {
+        $('#requestbutton').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Processing...').addClass('disabled');
+        makeRequest();
+        });
 
         function makeRequest() {
-
-            // make textarea and analysis button invisible
-            // and make loading animation visible
-            // toggleElements("analysisblock", "loader");
 
             var street_name = document.getElementById("uploaded_street_name").value;
             var data = {"street_name": street_name};
@@ -58,7 +59,7 @@
 
         function handleResponse(analysisResult) {
                
-            densData = analysisResult;
+            densData = analysisResult; //["densformap"];
             console.log(densData);
 
             // clean map area
@@ -79,6 +80,10 @@
                 el.html(el.html()+' - '+densData[code]+' villes');
                 }
             });
+            //$('#text_number').html(analysisResult['otherstuff'])
+            
+            // Reinitialize request button
+            $('#requestbutton').html('Start').removeClass('disabled');
 
        }
 
