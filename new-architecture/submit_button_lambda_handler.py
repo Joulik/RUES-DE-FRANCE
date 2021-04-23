@@ -34,10 +34,20 @@ def handler(event, context):
     # extract street name for query
     street_name = event['street_name']
     
+    
+    #user choice for regions or departments analysis
+    # user_choice = event['user_choice']
+    user_choice = "regions"
+    
+    if user_choice == "regions":
+        fr_codes_dict = fr_region_codes
+        query = query_regions.format(street_name)
+    elif user_choice == "departments":
+        fr_codes_dict = fr_department_codes
+        query = query_departments.format(street_name)
+    
     # setup and perform query
     client = boto3.client('athena')
-    
-    query = query_regions.format(street_name)
     
     DATABASE = 'default'
     output='s3://ruesdefrance-query-results/'
@@ -86,11 +96,11 @@ def handler(event, context):
         results_dict[k] = int(v)
     
     # initialize results dictionary
-    final_result_dict = init_results_dict(fr_region_codes)
+    final_result_dict = init_results_dict(fr_codes_dict)
     
     # map region names with region codes to construct result dict
     for k1,v1 in results_dict.items():
-        for k2,v2 in fr_region_codes.items():
+        for k2,v2 in fr_codes_dict.items():
             if k1==k2:
                 final_result_dict[v2]=v1
     
