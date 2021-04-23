@@ -3,7 +3,7 @@ import json
 import logging
 import time
 from constants import fr_region_codes,query_regions
-from constants import fr_department_codes
+from constants import fr_department_codes,query_departments
 
 
 def init_results_dict(fr_codes):
@@ -34,10 +34,9 @@ def handler(event, context):
     # extract street name for query
     street_name = event['street_name']
     
-    
     #user choice for regions or departments analysis
     # user_choice = event['user_choice']
-    user_choice = "regions"
+    user_choice = "departments"
     
     if user_choice == "regions":
         fr_codes_dict = fr_region_codes

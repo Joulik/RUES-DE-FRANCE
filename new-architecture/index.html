@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="jquery-jvectormap-2.0.5/jquery-jvectormap-2.0.5.min.js" ></script>
     <script src="jquery-jvectormap-fr_regions_2016-merc.js"></script>
+    <script src="jquery-jvectormap-fr-merc.js"></script>
     
     <title>Rues de France</title>
 </head>
@@ -72,7 +73,8 @@
 
             // show results on map
             $('#map-dens').vectorMap({
-                map: 'fr_regions_2016_merc',
+                //map: 'fr_regions_2016_merc',
+                map: 'fr_merc',
                 series: {
                     regions: [{
                         values: densData,
