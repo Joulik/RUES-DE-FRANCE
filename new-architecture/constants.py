@@ -128,23 +128,21 @@ fr_department_codes = {
 # SQL query for regions analysis
 query_regions = '''SELECT COUNT(aa.nom_comm),aa.nom_region 
             FROM
-            (SELECT DISTINCT(fr.nom_comm),fr.voie,fr.code_post,cdr.nom_region,cdr.latitude,cdr.longitude
+            (SELECT DISTINCT(fr.nom_comm),fr.voie,cdr.nom_region
             FROM default.france_rues AS fr
             JOIN default.communes_departements_regions AS cdr
-            ON fr.nom_comm=cdr.nom_commune
-            AND fr.code_post=cdr.code_postal
-            WHERE fr.voie LIKE '%{}') AS aa
+            ON fr.code_post=cdr.code_postal
+            WHERE fr.voie LIKE '%{}%') AS aa
             GROUP BY aa.nom_region
             ORDER BY aa.nom_region'''
 
 # SQL query for departments analysis            
-query_departments = '''SELECT COUNT(aa.nom_comm),aa.nom_departement
-                FROM
-                (SELECT DISTINCT(fr.nom_comm),fr.voie,fr.code_post,cdr.nom_departement,cdr.latitude,cdr.longitude
-                FROM default.france_rues AS fr
-                JOIN default.communes_departements_regions AS cdr
-                ON fr.nom_comm=cdr.nom_commune
-                AND fr.code_post=cdr.code_postal
-                WHERE fr.voie LIKE '%{}') AS aa
-                GROUP BY aa.nom_departement
-                ORDER BY aa.nom_departement'''
+query_departments = '''SELECT COUNT(aa.voie),aa.nom_departement
+            FROM
+            (SELECT DISTINCT(fr.nom_comm),fr.voie,cdr.nom_departement
+            FROM default.france_rues AS fr
+            JOIN default.communes_departements_regions AS cdr
+            ON fr.code_post=cdr.code_postal
+            WHERE fr.voie LIKE '%{}%') AS aa
+            GROUP BY aa.nom_departement
+            ORDER BY aa.nom_departement'''
