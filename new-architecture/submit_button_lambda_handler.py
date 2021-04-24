@@ -112,7 +112,7 @@ def handler(event, context):
     
     # dict to send back to JS
     subreports = {"nbr_streets_per_region":final_result_dict, \
-                "total_street_nbr":"<p>Il y a {} résultats pour {}.</p>" \
+                "total_street_nbr":"<p>Il y a {} résultats qui contiennent {}.</p>" \
                 .format(total_street_nbr,street_name)}
 
     return {
