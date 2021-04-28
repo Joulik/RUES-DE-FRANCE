@@ -49,3 +49,7 @@ FROM full
 GROUP BY voie,code_post,nom_comm
 ORDER BY nom_comm;
 ```
+
+### CSV files in S3
+
+The CSV files mentioned above to construct the database are stored in S3.
