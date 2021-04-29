@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="jquery-jvectormap-2.0.5/jquery-jvectormap-2.0.5.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="style.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -12,6 +13,14 @@
     <script src="jquery-jvectormap-fr_regions_2016-merc.js"></script>
     <script src="jquery-jvectormap-fr-merc.js"></script>
     
+    <!-- <style>
+        div.ex1 {
+            background-color: rgb(241, 251, 255);
+            height: 200px;
+            overflow-y: scroll;
+        }
+    </style> -->
+
     <title>Rues de France</title>
 </head>
 <body>
@@ -62,7 +71,15 @@
     
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h4 id="total_number"></h4>
+                <div class="container">
+                    <h4 id="total_number"></h4>
+                </div>
+ 
+                <div class="container ex1">
+                    <ul id="town_list">
+                    
+                    </ul>
+                </div>
             </div>
             <!-- https://stackoverflow.com/questions/52373042/html-box-with-inside-a-list-of-element -->
             <div class="col-sm-6">
@@ -100,7 +117,10 @@
             var data = {"street_name": street_name};
             
             $.ajax({
-               url: "https://234zziyame.execute-api.eu-west-3.amazonaws.com/v1/submit_button_lambda_handler",
+               // Prod
+               //url: "https://234zziyame.execute-api.eu-west-3.amazonaws.com/v1/submit_button_lambda_handler",
+               // Dev
+               url: "https://ydiinbptd2.execute-api.eu-west-3.amazonaws.com/default/ruesdefrance_dev",
                type: "POST",
                data: JSON.stringify(data),
                success: function(response) {
@@ -116,12 +136,16 @@
                
             densData = analysisResult["nbr_streets_per_region"];
             totStreetNbr = analysisResult["total_street_nbr"];
+            townList = analysisResult["town_zip_list"];
             console.log(densData);
+            console.log(townList);
 
             // clean map area
             document.getElementById("map-dens").innerHTML='';
             // clean text box
             document.getElementById("uploaded_street_name").value='';
+            // clean town list box
+            //document.getElementById("town_list").value='';
 
             // show results on map
             $('#map-dens').vectorMap({
@@ -139,7 +163,11 @@
             });
 
             // total number of requested street 
-            $('#total_number').html(analysisResult["total_street_nbr"])
+            //$('#total_number').html(analysisResult["total_street_nbr"])
+            $('#total_number').html(totStreetNbr)
+
+            // list of towns with their zip code
+            $('#town_list').html(townList)
             
             // reinitialize request button
             $('#requestbutton').html('Start').removeClass('disabled');
