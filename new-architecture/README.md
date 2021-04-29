@@ -18,7 +18,7 @@ An API Gateway is created in AWS to trigger the Lambda function. The API Gateway
 
 ### Map of France regions
 
-The map is implemented through JS files, which may be downloaded from the documented site https://jvectormap.com/
+The map is implemented through JS files, which may be downloaded from the documented site https://jvectormap.com/.
 
 ## Back end
 
@@ -26,15 +26,19 @@ The back end has two main components: python scripts in Lambda and a database in
 
 ### Python scripts in Lambda
 
-The python scripts in Lambda are submit_button_lambda_handler.py and constants.py 
+The python scripts in Lambda are submit_button_lambda_handler.py and constants.py
+
+### Installing pandas in a layer of Lambda
+
+The package pandas is required. The procedure to install it in a layer of the Lambda function may be found from https://medium.com/swlh/how-to-add-python-pandas-layer-to-aws-lambda-bab5ea7ced4f.
 
 ### Database creation in AWS Athena
 
-Athena's user guide is of great help to create the needed database. It can be found from https://docs.aws.amazon.com/athena/latest/ug/what-is.html
+Athena's user guide is of great help to create the needed database. It can be found from https://docs.aws.amazon.com/athena/latest/ug/what-is.html.
 
 The database contains two tables, namely communes_departements_regions and france_rues.
 
-communes_departements_regions directly constructed from communes-departement-region.csv, which can be downloaded from https://www.data.gouv.fr/en/datasets/communes-de-france-base-des-codes-postaux/
+communes_departements_regions directly constructed from communes-departement-region.csv, which can be downloaded from https://www.data.gouv.fr/en/datasets/communes-de-france-base-des-codes-postaux/.
 
 france_rues was constructed from full.csv.gz that can be dowmloaded from http://bano.openstreetmap.fr/data/. Useful information on the structure of this CSV can be found from https://www.data.gouv.fr/en/datasets/base-d-adresses-nationale-ouverte-bano/.
 
