@@ -4,9 +4,9 @@ The diagram below illustrates the architecture of the webapp.
 
 ![diagram](RDF_architecture_diagram.png) 
 
-User enters a street name in the front end input area. When the start button or the return key are pressed, the API Gateway is triggered so the user request is transferred to the Lambda function. The Lambda function is a python script, which sends an SQL query to Athena. The query's result is returned to Lambda. Lambda sends the result JSON back to the front end. The result of the user's query is shown on a map of France.
+## Usage
 
-# Usage
+User enters a street name in the front end input area. When the start button or the return key are pressed, the API Gateway is triggered so the user request is transferred to the Lambda function. The Lambda function is a python script, which sends an SQL query to Athena. The query's result is returned to Lambda. Lambda sends the result JSON back to the front end. The result of the user's query is shown on a map of France.
 
 ## Front end
 
