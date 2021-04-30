@@ -146,3 +146,12 @@ query_departments = '''SELECT COUNT(aa.voie),aa.nom_departement
             WHERE fr.voie LIKE '%{}%') AS aa
             GROUP BY aa.nom_departement
             ORDER BY aa.nom_departement'''
+            
+# SQL query to get all streets 
+query_streets = '''SELECT voie,code_postal,nom_comm FROM
+                    (SELECT DISTINCT(fr.nom_comm),fr.voie,cdr.code_postal
+                    FROM default.france_rues AS fr
+                    JOIN default.communes_departements_regions AS cdr
+                    ON fr.code_post=cdr.code_postal
+                    WHERE fr.voie LIKE '%{}%')
+                    LIMIT 100;'''
