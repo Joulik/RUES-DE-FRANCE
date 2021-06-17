@@ -3,6 +3,7 @@ import json
 import logging
 import time
 import pandas as pd
+import re
 from constants import fr_department_codes
 from constants import query_departments,query_streets
 
@@ -86,6 +87,9 @@ def handler(event, context):
     # extract street name for query
     street_name = event['street_name']
     
+    # enable queries with quote sign like d'Astier
+    street_name = re.sub("(')","''",street_name)
+
     # query to prepare examples of towns corresponding to street name
     sql_query = query_streets.format(street_name)
     df = pd.DataFrame(perform_query(sql_query))
